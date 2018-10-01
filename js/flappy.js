@@ -176,10 +176,23 @@ function FlappyBird(){
 			passaro.animar()
 
 			if(colidiu(passaro, barreiras)){
-				clearInterval(temporizador)
+				clearInterval(temporizador);
+				iniciarJogo();
 			}
 		}, 20)
 	}
 }
-
-new FlappyBird().start()
+function iniciarJogo(){
+	document.querySelector('[wm-flappy]').innerHTML = '';
+	const elemento = novoElemento('div', 'iniciarJogo');
+	elemento.insertAdjacentHTML('afterbegin', '<span>Pressione Espaço para começar</span>');
+	window.onkeypress = function(e){
+		
+		if(e.code == "Space"){
+			elemento.parentNode.removeChild(elemento);
+			new FlappyBird().start();			
+		}
+	}
+	document.querySelector('[wm-flappy]').appendChild(elemento);
+}
+iniciarJogo();
